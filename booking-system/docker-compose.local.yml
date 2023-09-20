@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  php:
+    extends:
+      file: docker/common-services.yml
+      service: php
+    env_file:
+      - .env.local
+
+  fpm:
+    extends:
+      file: docker/common-services.yml
+      service: fpm
+    restart: always
+
+  apache:
+    extends:
+      file: docker/common-services.yml
+      service: apache
+    ports:
+      - "8000:80"
+
+  queue:
+    extends:
+      service: php
+    restart: always
+    command: /bin/sh -c "php artisan queue:listen --sleep=3"
+
+  db:
+    image: mysql/mysql-server:8.0.28-1.2.7-server
+    restart: always
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  db-data:

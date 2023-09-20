@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  php:
+    image: ${IMAGE_NAME_PREFIX}php:${IMAGE_TAG:-latest}
+    build:
+      context: ./
+      dockerfile: docker/php/Dockerfile
+      target: production
+
+networks:
+  internal:
+    external: false

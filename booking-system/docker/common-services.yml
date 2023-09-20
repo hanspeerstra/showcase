@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  apache:
+    build:
+      context: ../
+      dockerfile: docker/apache/Dockerfile
+    volumes:
+      - ../:/app:delegated
+
+  fpm:
+    build:
+      context: ../
+      dockerfile: docker/fpm/Dockerfile
+    volumes:
+      - ../:/app:delegated
+
+  php:
+    build:
+      context: ../
+      dockerfile: docker/php/Dockerfile
+      target: development
+    volumes:
+      - ../:/app:delegated

@@ -1,0 +1,30 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\ServiceCenter\ServiceCenterCase\Http\Request;
+
+use App\Models\Office\Site;
+use App\ServiceCenter\ServiceCenterCase\ServiceCenterCase;
+use Illuminate\Foundation\Http\FormRequest;
+
+/**
+ * @property ServiceCenterCase $case
+ */
+class CaseShowQuestionnaireDataByLeadScreeningRequest extends FormRequest
+{
+    public function rules(): array
+    {
+        return [];
+    }
+
+    public function getSite(): Site
+    {
+        return $this->getCase()->getSourceSite();
+    }
+
+    public function getCase(): ServiceCenterCase
+    {
+        return $this->case;
+    }
+}
